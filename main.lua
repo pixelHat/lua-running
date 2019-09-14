@@ -1,7 +1,16 @@
 require 'src/Dependencies'
 
 function love.load()
-
+  push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
+        vsync = true,
+        fullscreen = false,
+        resizable = true
+  })
+  
+  gStateMachine = StateMachine {
+    ['play'] = function() return PlayState() end
+  }
+  gStateMachine:change('play')
 end
 
 function love.resize(w, h)
@@ -13,5 +22,9 @@ function love.update()
 end
 
 function love.draw()
+  push:apply('start')
 
+  gStateMachine:render()
+
+  push:apply('end')
 end
