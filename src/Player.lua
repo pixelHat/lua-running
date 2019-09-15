@@ -5,12 +5,27 @@ Player = Class{}
 
 function Player:init(x)
   self.x = x
-  self.y = VIRTUAL_HEIGHT - 125 / 2 - 40
+  self.y = VIRTUAL_HEIGHT - 125 / 2 - GROUND_HEIGHT
+  self.height = 125 / 2
+  self.width = 80 / 2
   self.velX = 5
   self.dy = 0
-  self.gravity = 5
+  self.gravity = 30
   self.canJump = 0
-  self.delayJump = 25
+  self.delayJump = true
+end
+
+function Player:collide(obstacle)
+  if self.x > obstacle.x + obstacle.width then
+    return false
+  elseif self.x + self.width < obstacle.x then
+    return false
+  elseif self.y > obstacle.y + obstacle.height then
+    return false
+  elseif self.y + self.height < obstacle.y then
+    return false
+  end
+  return true
 end
 
 function Player:update(dt)
@@ -20,19 +35,19 @@ function Player:update(dt)
     self.x = self.x + self.velX
   end
 
-  if love.keyboard.isDown('up') and self.canJump == 0 then
-    self.dy = -30
-    self.canJump = self.delayJump
+  if love.keyboard.isDown('up') and self.canJump then
+    self.dy = -10
+    self.canJump = false
   end
 
   self.y = self.y + self.dy
-  self.canJump = math.max(0, self.canJump - 1)
 
   if self.y >= VIRTUAL_HEIGHT - 125 / 2 - 40 then
     self.y = VIRTUAL_HEIGHT - 125 / 2 - 40
     self.dy = 0
+    self.canJump = true
   else
-    self.dy = self.dy + self.gravity
+    self.dy = self.dy + self.gravity * dt
   end
 
 end
