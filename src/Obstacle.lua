@@ -3,9 +3,9 @@ local obstacleImage = love.graphics.newImage('graphics/terrain/trash.png')
 Obstacle = Class{}
 
 function Obstacle:init(x)
-  self.x = x
-  self.y = VIRTUAL_HEIGHT - 20 * 2 - 20 * 2
   self.height, self.width = obstacleImage:getDimensions()
+  self.x = x
+  self.y = VIRTUAL_HEIGHT - self.height * 2 - GROUND_HEIGHT
   self.velX = 150
 end
 
