@@ -8,12 +8,17 @@ function love.load()
         resizable = true
   })
 
+  smallFont = love.graphics.newFont('fonts/font.ttf', 8)
+  mediumFont = love.graphics.newFont('fonts/font.ttf', 28)
+  hugeFont = love.graphics.newFont('fonts/font.ttf', 56)
+
   love.keyboard.keysPressed = {}
 
   gStateMachine = StateMachine {
+    ['title'] = function() return StartState() end,
     ['play'] = function() return PlayState() end
   }
-  gStateMachine:change('play')
+  gStateMachine:change('title')
 end
 
 function love.resize(w, h)
@@ -27,7 +32,7 @@ function love.keypressed(key)
   love.keyboard.keysPressed[key] = true
 end
 
-function love.wasPressed(key)
+function love.keyboard.wasPressed(key)
   if love.keyboard.keysPressed[key] then
     return true
   end
@@ -35,8 +40,8 @@ function love.wasPressed(key)
 end
 
 function love.update(dt)
-  love.keyboard.keysPressed = {}
   gStateMachine:update(dt)
+  love.keyboard.keysPressed = {}
 end
 
 function love.draw()
