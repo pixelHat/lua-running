@@ -20,7 +20,10 @@ end
 
 function Animation:getCurrentFrame()
   return love.graphics.newQuad(self.currentFrame*self.spriteWidth, 0, self.spriteWidth, self.spriteHeight, self.spriteSheet:getDimensions())
-  -- return self.spriteSheet[self.currentFrame]
+end
+
+function Animation:getSpritesheet()
+  return self.spriteSheet
 end
 
 function Animation:calculateFrames()

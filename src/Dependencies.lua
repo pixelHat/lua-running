@@ -9,6 +9,7 @@ require 'src/states/PlayState'
 require 'src/states/StartState'
 
 require 'src/Animation'
+require 'src/StateAnimation'
 
 require 'src/Player'
 require 'src/Obstacle'

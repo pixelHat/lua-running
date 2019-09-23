@@ -1,7 +1,8 @@
-local runSprite = love.graphics.newImage('graphics/player/run_spritesheet.png')
-local quad = love.graphics.newQuad(0, 0, 80, 125, runSprite:getDimensions())
+local runningSpritesheet = love.graphics.newImage('graphics/player/run_spritesheet.png')
+local jumpSpritesheet = love.graphics.newImage('graphics/player/jumpfall_spritesheet.png')
 
 Player = Class{}
+
 
 function Player:init(x)
   self.x = x
@@ -13,6 +14,11 @@ function Player:init(x)
   self.gravity = 30
   self.canJump = 0
   self.delayJump = true
+  self.animations = StateAnimation{
+    ['running'] = function() return Animation(runningSpritesheet, 79, 124, 0.05) end,
+    ['jump'] = function() return Animation(jumpSpritesheet, 67, 123, 0.3) end,
+  }
+  self.animations:change('running')
 end
 
 function Player:collide(obstacle)
@@ -38,6 +44,7 @@ function Player:update(dt)
   if love.keyboard.isDown('up') and self.canJump then
     self.dy = -10
     self.canJump = false
+    self.animations:change('jump')
   end
 
   self.y = self.y + self.dy
@@ -46,12 +53,14 @@ function Player:update(dt)
     self.y = VIRTUAL_HEIGHT - 125 / 2 - 40
     self.dy = 0
     self.canJump = true
+    self.animations:change('running')
   else
     self.dy = self.dy + self.gravity * dt
   end
 
+  self.animations:update(dt)
 end
 
 function Player:render()
-  love.graphics.draw(runSprite, quad, self.x, self.y, 0, 0.5)
+  self.animations:render(self.x, self.y)
 end
