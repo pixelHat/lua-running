@@ -1,6 +1,7 @@
 require 'src/Dependencies'
 
 function love.load()
+  math.randomseed(os.time())
   love.graphics.setDefaultFilter('nearest', 'nearest')
   push:setupScreen(VIRTUAL_WIDTH, VIRTUAL_HEIGHT, WINDOW_WIDTH, WINDOW_HEIGHT, {
         vsync = true,

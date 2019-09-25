@@ -1,9 +1,12 @@
-local obstacleImage = love.graphics.newImage('graphics/terrain/trash.png')
+local trashImage = love.graphics.newImage('graphics/terrain/trash.png')
+local barricadeImage = love.graphics.newImage('graphics/terrain/barricade.png')
+local obstacleImages = {trashImage, barricadeImage}
 
 Obstacle = Class{}
 
 function Obstacle:init(x)
-  self.height, self.width = obstacleImage:getDimensions()
+  self.obstacleImage = self:chooseObstacleImage()
+  self.width, self.height = self.obstacleImage:getDimensions()
   self.x = x
   self.y = VIRTUAL_HEIGHT - self.height * 2 - GROUND_HEIGHT
   self.velX = 150
@@ -14,5 +17,9 @@ function Obstacle:update(dt)
 end
 
 function Obstacle:render()
-  love.graphics.draw(obstacleImage, self.x, self.y, 0, 2)
+  love.graphics.draw(self.obstacleImage, self.x, self.y, 0, 2)
+end
+
+function Obstacle:chooseObstacleImage()
+  return obstacleImages[math.random(2)]
 end
