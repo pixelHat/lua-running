@@ -10,6 +10,7 @@ function Obstacle:init(x)
   self.x = x
   self.y = VIRTUAL_HEIGHT - self.height * 2 - GROUND_HEIGHT
   self.velX = 150
+  self.scored = false
 end
 
 function Obstacle:update(dt)

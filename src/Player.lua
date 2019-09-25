@@ -19,6 +19,7 @@ function Player:init(x)
     ['jump'] = function() return Animation(jumpSpritesheet, 67, 123, 0.3) end,
   }
   self.animations:change('running')
+  self.score = 0
 end
 
 function Player:collide(obstacle)
@@ -63,4 +64,9 @@ end
 
 function Player:render()
   self.animations:render(self.x, self.y)
+  love.graphics.print(self.score, 40, 10)
+end
+
+function Player:addPoint()
+  self.score = self.score + 1
 end

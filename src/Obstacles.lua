@@ -26,10 +26,15 @@ function Obstacles:render()
   end
 end
 
-function Obstacles:collide(obj)
+function Obstacles:collide(player)
   for k, obstacle in pairs(self.obstacles) do
-    if simpleCollide(obj, obstacle) then
+    if simpleCollide(player, obstacle) then
       return true
+    elseif not obstacle.scored then
+      if obstacle.x + obstacle.width < player.x then
+        player:addPoint()
+        obstacle.scored = true
+      end
     end
   end
   return false
