@@ -23,6 +23,7 @@ function PlayState:update(dt)
   self.obstacles:update(dt)
 
   if self.obstacles:collide(self.player) then
+    gSounds['hurt']:play()
     gStateMachine:change('title')
   end
 end

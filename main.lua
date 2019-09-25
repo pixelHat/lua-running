@@ -20,6 +20,17 @@ function love.load()
     ['play'] = function() return PlayState() end
   }
   gStateMachine:change('title')
+
+  gSounds = {
+        ['jump'] = love.audio.newSource('sounds/jump.wav', 'static'),
+        -- ['explosion'] = love.audio.newSource('explosion.wav', 'static'),
+        ['hurt'] = love.audio.newSource('sounds/hurt.wav', 'static'),
+        ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
+        ['music'] = love.audio.newSource('sounds/backgroundSound.mp3', 'static')
+    }
+
+    gSounds['music']:setLooping(true)
+    gSounds['music']:play()
 end
 
 function love.resize(w, h)

@@ -46,6 +46,7 @@ function Player:update(dt)
     self.dy = -10
     self.canJump = false
     self.animations:change('jump')
+    gSounds['jump']:play()
   end
 
   self.y = self.y + self.dy
@@ -69,4 +70,5 @@ end
 
 function Player:addPoint()
   self.score = self.score + 1
+  gSounds['score']:play()
 end
