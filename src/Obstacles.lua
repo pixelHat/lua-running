@@ -5,7 +5,7 @@ function Obstacles:init(timerToSpawn)
   self.spawnTimer = timerToSpawn
   self.obstacles = {}
   self.timer = 0
-  self.spawnTimer = 1.5
+  self.spawnTimer = 2
 end
 
 function Obstacles:update(dt)
@@ -15,7 +15,7 @@ function Obstacles:update(dt)
 
   self.timer = self.timer + dt
   if self.timer >= self.spawnTimer then
-    self.timer = math.random(0, 0.4)
+    self.timer = 0
     table.insert(self.obstacles, Obstacle(VIRTUAL_WIDTH))
   end
 end
