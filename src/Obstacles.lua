@@ -8,9 +8,9 @@ function Obstacles:init(timerToSpawn)
   self.spawnTimer = 2
 end
 
-function Obstacles:update(dt)
+function Obstacles:update(velGround, dt)
   for k, obstacle in pairs(self.obstacles) do
-    obstacle:update(dt)
+    obstacle:update(velGround, dt)
   end
 
   self.timer = self.timer + dt

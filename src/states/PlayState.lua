@@ -20,12 +20,14 @@ function PlayState:update(dt)
   self.backgroundScroll = (self.backgroundScroll + self.backgroundScrollVelocity*dt) % self.backgroundWidth
   self.groundScroll = (self.groundScroll + self.groundScrollVelocity*dt) % self.groundWidth
   self.player:update(dt)
-  self.obstacles:update(dt)
+  self.obstacles:update(self.groundScrollVelocity, dt)
 
   if self.obstacles:collide(self.player) then
     gSounds['hurt']:play()
     gStateMachine:change('gameOver', {['score'] = self.player.score})
   end
+
+  self.groundScrollVelocity = self.groundScrollVelocity + dt * 5
 end
 
 function PlayState:render()

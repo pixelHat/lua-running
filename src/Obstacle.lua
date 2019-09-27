@@ -9,12 +9,11 @@ function Obstacle:init(x)
   self.width, self.height = self.obstacleImage:getDimensions()
   self.x = x
   self.y = VIRTUAL_HEIGHT - self.height * 2 - GROUND_HEIGHT
-  self.velX = 150
   self.scored = false
 end
 
-function Obstacle:update(dt)
-  self.x = self.x - self.velX * dt
+function Obstacle:update(velX, dt)
+  self.x = self.x - velX * dt
 end
 
 function Obstacle:render()
