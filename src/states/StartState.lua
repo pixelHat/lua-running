@@ -4,13 +4,15 @@ StartState = Class{__includes = BaseState}
 
 function StartState:init()
   self.highlight = 0
-  self.options = 2
+  self.options = 3
 end
 
 function StartState:update(dt)
   if love.keyboard.isDown('return') then
     if self.highlight == 0 then
       gStateMachine:change('play')
+    elseif self.highlight == 2 then
+      love.event.quit()
     end
   elseif love.keyboard.wasPressed('down') then
     self.highlight = (self.highlight + 1) % self.options
@@ -35,6 +37,12 @@ function StartState:render()
     love.graphics.setColor(0, 255, 255, 255)
   end
   love.graphics.printf('Scores', 0, VIRTUAL_HEIGHT / 2 + 50, VIRTUAL_WIDTH, 'center')
+  love.graphics.setColor(255, 255, 255, 255)
+
+  if (self.highlight == 2) then
+    love.graphics.setColor(0, 255, 255, 255)
+  end
+  love.graphics.printf('Exit', 0, VIRTUAL_HEIGHT / 2 + 100, VIRTUAL_WIDTH, 'center')
   love.graphics.setColor(255, 255, 255, 255)
 end
 
