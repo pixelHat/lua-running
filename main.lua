@@ -17,20 +17,26 @@ function love.load()
 
   gStateMachine = StateMachine {
     ['title'] = function() return StartState() end,
-    ['play'] = function() return PlayState() end
+    ['play'] = function() return PlayState() end,
+    ['gameOver'] = function() return GameOverState() end
   }
+
   gStateMachine:change('title')
 
   gSounds = {
         ['jump'] = love.audio.newSource('sounds/jump.wav', 'static'),
-        -- ['explosion'] = love.audio.newSource('explosion.wav', 'static'),
         ['hurt'] = love.audio.newSource('sounds/hurt.wav', 'static'),
         ['score'] = love.audio.newSource('sounds/score.wav', 'static'),
         ['music'] = love.audio.newSource('sounds/backgroundSound.mp3', 'static')
-    }
+  }
 
-    gSounds['music']:setLooping(true)
-    gSounds['music']:play()
+  for k, s in pairs(gSounds) do
+    s:setVolume(0)
+  end
+
+  gSounds['music']:setLooping(true)
+  gSounds['music']:play()
+
 end
 
 function love.resize(w, h)
