@@ -31,7 +31,7 @@ function love.load()
   }
 
   for k, s in pairs(gSounds) do
-    s:setVolume(0)
+    s:setVolume(0.5)
   end
 
   gSounds['music']:setLooping(true)
